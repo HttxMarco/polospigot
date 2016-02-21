@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Maps;
+import org.github.paperspigot.exception.ServerInternalException;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -53,6 +55,7 @@ public class RegionFileCache {
                 }
             } catch (IOException ioexception) {
                 ioexception.printStackTrace();
+                ServerInternalException.reportInternalException(ioexception); // Paper
             }
         }
 

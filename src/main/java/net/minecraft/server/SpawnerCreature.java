@@ -10,6 +10,7 @@ import java.util.Set;
 import org.bukkit.craftbukkit.util.LongHash;
 import org.bukkit.craftbukkit.util.LongHashSet;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import org.github.paperspigot.exception.ServerInternalException;
 // CraftBukkit end
 
 public final class SpawnerCreature {
@@ -171,6 +172,7 @@ public final class SpawnerCreature {
                                                             entityinsentient = (EntityInsentient) biomebase_biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { worldserver});
                                                         } catch (Exception exception) {
                                                             exception.printStackTrace();
+                                                            ServerInternalException.reportInternalException(exception); // Paper
                                                             return j1;
                                                         }
 
@@ -276,6 +278,7 @@ public final class SpawnerCreature {
                                 entityinsentient = (EntityInsentient) biomebase_biomemeta.b.getConstructor(new Class[] { World.class}).newInstance(new Object[] { world});
                             } catch (Exception exception) {
                                 exception.printStackTrace();
+                                ServerInternalException.reportInternalException(exception); // Paper
                                 continue;
                             }
 

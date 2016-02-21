@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import org.github.paperspigot.exception.ServerInternalException;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -136,6 +138,7 @@ public class VillageSiege {
                 entityzombie.setVillager(false);
             } catch (Exception exception) {
                 exception.printStackTrace();
+                ServerInternalException.reportInternalException(exception); // Paper
                 return false;
             }
 

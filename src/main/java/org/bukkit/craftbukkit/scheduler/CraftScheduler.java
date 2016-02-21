@@ -21,6 +21,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scheduler.BukkitWorker;
+import org.github.paperspigot.ServerSchedulerReportingWrapper;
+import org.github.paperspigot.event.ServerExceptionEvent;
+import org.github.paperspigot.exception.ServerSchedulerException;
 
 /**
  * The fundamental concepts for this implementation:
@@ -348,18 +351,24 @@ public class CraftScheduler implements BukkitScheduler {
                 try {
                     task.run();
                 } catch (final Throwable throwable) {
+                    // Paper start
+                    String msg = String.format(
+                            "Task #%s for %s generated an exception",
+                            task.getTaskId(),
+                            task.getOwner().getDescription().getFullName());
                     task.getOwner().getLogger().log(
                             Level.WARNING,
-                            String.format(
-                                "Task #%s for %s generated an exception",
-                                task.getTaskId(),
-                                task.getOwner().getDescription().getFullName()),
+                            msg,
                             throwable);
+                    task.getOwner().getServer().getPluginManager().callEvent(
+                            new ServerExceptionEvent(new ServerSchedulerException(msg, throwable, task))
+                    );
+                    // Paper end
                 }
                 parsePending();
             } else {
                 debugTail = debugTail.setNext(new CraftAsyncDebugger(currentTick + RECENT_TICKS, task.getOwner(), task.getTaskClass()));
-                executor.execute(task);
+                executor.execute(new ServerSchedulerReportingWrapper(task)); // Paper
                 // We don't need to parse pending
                 // (async tasks must live with race-conditions if they attempt to cancel between these few lines of code)
             }

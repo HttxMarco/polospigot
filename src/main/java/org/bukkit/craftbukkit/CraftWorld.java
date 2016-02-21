@@ -55,6 +55,7 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.StandardMessenger;
 import org.bukkit.util.Vector;
+import org.github.paperspigot.exception.ServerInternalException;
 
 public class CraftWorld implements World {
     public static final int CUSTOM_DIMENSION_OFFSET = 10;
@@ -778,6 +779,7 @@ public class CraftWorld implements World {
             world.savingDisabled = oldSave;
         } catch (ExceptionWorldConflict ex) {
             ex.printStackTrace();
+            ServerInternalException.reportInternalException(ex); // Paper
         }
     }
 

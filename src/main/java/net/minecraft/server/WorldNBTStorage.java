@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.UUID;
 
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.github.paperspigot.exception.ServerInternalException;
 // CraftBukkit end
 
 public class WorldNBTStorage implements IDataManager, IPlayerFileData {
@@ -96,6 +97,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
                 return new WorldData(nbttagcompound1);
             } catch (Exception exception) {
                 exception.printStackTrace();
+                ServerInternalException.reportInternalException(exception); // Paper
             }
         }
 
@@ -107,6 +109,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
                 return new WorldData(nbttagcompound1);
             } catch (Exception exception1) {
                 exception1.printStackTrace();
+                ServerInternalException.reportInternalException(exception1); // Paper
             }
         }
 
@@ -140,6 +143,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
             }
         } catch (Exception exception) {
             exception.printStackTrace();
+            ServerInternalException.reportInternalException(exception); // Paper
         }
 
     }
@@ -171,6 +175,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
             }
         } catch (Exception exception) {
             exception.printStackTrace();
+            ServerInternalException.reportInternalException(exception); // Paper
         }
 
     }

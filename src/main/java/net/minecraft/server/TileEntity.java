@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import co.aikar.timings.SpigotTimings; // Spigot
 import co.aikar.timings.Timing; // Spigot
 import org.bukkit.inventory.InventoryHolder; // CraftBukkit
+import org.github.paperspigot.exception.ServerInternalException;
 
 public abstract class TileEntity {
 
@@ -76,6 +77,7 @@ public abstract class TileEntity {
             }
         } catch (Exception exception) {
             exception.printStackTrace();
+            ServerInternalException.reportInternalException(exception); // Paper
         }
 
         if (tileentity != null) {

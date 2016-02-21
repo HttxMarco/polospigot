@@ -24,6 +24,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.github.paperspigot.event.ServerExceptionEvent;
+import org.github.paperspigot.exception.ServerInternalException;
 // PaperSpigot end
 
 // CraftBukkit start
@@ -1450,8 +1452,10 @@ public abstract class World implements IBlockAccess {
                 } catch (Throwable throwable1) {
                     // PaperSpigot start - Prevent tile entity and entity crashes
                     entity.tickTimer.stopTiming();
-                    System.err.println("Entity threw exception at " + entity.world.getWorld().getName() + ":" + entity.locX + "," + entity.locY + "," + entity.locZ);
+                    String msg = "Entity threw exception at " + entity.world.getWorld().getName() + ":" + entity.locX + "," + entity.locY + "," + entity.locZ;
+                    System.err.println(msg);
                     throwable1.printStackTrace();
+                    getServer().getPluginManager().callEvent(new ServerExceptionEvent(new ServerInternalException(msg, throwable1)));
                     entity.dead = true;
                     continue;
                     // PaperSpigot end
@@ -1513,8 +1517,10 @@ public abstract class World implements IBlockAccess {
                     } catch (Throwable throwable2) {
                         // PaperSpigot start - Prevent tile entity and entity crashes
                         tileentity.tickTimer.stopTiming();
-                        System.err.println("TileEntity threw exception at " + tileentity.world.getWorld().getName() + ":" + tileentity.position.getX() + "," + tileentity.position.getY() + "," + tileentity.position.getZ());
+                        String msg = "TileEntity threw exception at " + tileentity.world.getWorld().getName() + ":" + tileentity.position.getX() + "," + tileentity.position.getY() + "," + tileentity.position.getZ();
+                        System.err.println(msg);
                         throwable2.printStackTrace();
+                        getServer().getPluginManager().callEvent(new ServerExceptionEvent(new ServerInternalException(msg, throwable2)));
                         tilesThisCycle--;
                         this.tileEntityList.remove(tileTickPosition--);
                         continue;

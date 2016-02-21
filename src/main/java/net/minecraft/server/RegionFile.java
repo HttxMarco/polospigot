@@ -1,6 +1,8 @@
 package net.minecraft.server;
 
 import com.google.common.collect.Lists;
+import org.github.paperspigot.exception.ServerInternalException;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -82,6 +84,7 @@ public class RegionFile {
             }
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
+            ServerInternalException.reportInternalException(ioexception); // Paper
         }
 
     }
@@ -247,6 +250,7 @@ public class RegionFile {
             this.b(i, j, (int) (MinecraftServer.az() / 1000L));
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
+            ServerInternalException.reportInternalException(ioexception); // Paper
         }
 
     }

@@ -25,6 +25,9 @@ import java.util.Map;
 import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bukkit.Bukkit;
+import org.github.paperspigot.event.ServerExceptionEvent;
+import org.github.paperspigot.exception.ServerInternalException;
 
 public class NameReferencingFileConverter {
 
@@ -361,6 +364,7 @@ public class NameReferencingFileConverter {
                             root = NBTCompressedStreamTools.a(new java.io.FileInputStream(file1));
                         } catch (Exception exception) {
                             exception.printStackTrace();
+                            ServerInternalException.reportInternalException(exception); // Paper
                         }
 
                         if (root != null) {
@@ -374,8 +378,9 @@ public class NameReferencingFileConverter {
                                 NBTCompressedStreamTools.a(root, new java.io.FileOutputStream(file2));
                             } catch (Exception exception) {
                                 exception.printStackTrace();
+                                ServerInternalException.reportInternalException(exception); // Paper
                             }
-                       }
+                        }
                         // CraftBukkit end
 
                         NameReferencingFileConverter.b(file);

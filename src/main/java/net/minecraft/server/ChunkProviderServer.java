@@ -15,12 +15,15 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.craftbukkit.chunkio.ChunkIOExecutor;
 import org.bukkit.craftbukkit.util.LongHash;
 import org.bukkit.craftbukkit.util.LongHashSet;
 import org.bukkit.craftbukkit.util.LongObjectHashMap;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.github.paperspigot.event.ServerExceptionEvent;
+import org.github.paperspigot.exception.ServerInternalException;
 // CraftBukkit end
 
 public class ChunkProviderServer implements IChunkProvider {
@@ -215,11 +218,14 @@ public class ChunkProviderServer implements IChunkProvider {
 
         if (chunk == emptyChunk) return chunk;
         if (i != chunk.locX || j != chunk.locZ) {
-            b.error("Chunk (" + chunk.locX + ", " + chunk.locZ + ") stored at  (" + i + ", " + j + ") in world '" + world.getWorld().getName() + "'");
+            // Paper start
+            String msg = "Chunk (" + chunk.locX + ", " + chunk.locZ + ") stored at  (" + i + ", " + j + ") in world '" + world.getWorld().getName() + "'";
+            b.error(msg);
             b.error(chunk.getClass().getName());
-            Throwable ex = new Throwable();
-            ex.fillInStackTrace();
+            ServerInternalException ex = new ServerInternalException(msg);
             ex.printStackTrace();
+            Bukkit.getPluginManager().callEvent(new ServerExceptionEvent(ex));
+            // Paper end
         }
 
         return chunk;
@@ -244,7 +250,11 @@ public class ChunkProviderServer implements IChunkProvider {
 
                 return chunk;
             } catch (Exception exception) {
-                ChunkProviderServer.b.error("Couldn\'t load chunk", exception);
+                // Paper start
+                String msg = "Couldn\'t load chunk";
+                ChunkProviderServer.b.error(msg, exception);
+                ServerInternalException.reportInternalException(exception);
+                // Paper end
                 return null;
             }
         }

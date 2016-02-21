@@ -18,6 +18,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.common.collect.Lists; // CraftBukkit
 import org.bukkit.Bukkit; // CraftBukkit
+import org.bukkit.craftbukkit.util.CraftMagicNumbers;
+import org.github.paperspigot.event.ServerExceptionEvent;
+import org.github.paperspigot.exception.ServerInternalException;
 
 public class Chunk {
 
@@ -869,10 +872,15 @@ public class Chunk {
             this.tileEntities.remove(blockposition);
             // PaperSpigot end
         } else {
-            System.out.println("Attempted to place a tile entity (" + tileentity + ") at " + tileentity.position.getX() + "," + tileentity.position.getY() + "," + tileentity.position.getZ()
-                + " (" + org.bukkit.craftbukkit.util.CraftMagicNumbers.getMaterial(getType(blockposition)) + ") where there was no entity tile!");
-            System.out.println("Chunk coordinates: " + (this.locX * 16) + "," + (this.locZ * 16));
-            new Exception().printStackTrace();
+            // Paper start
+            ServerInternalException e = new ServerInternalException(
+                    "Attempted to place a tile entity (" + tileentity + ") at " + tileentity.position.getX() + ","
+                    + tileentity.position.getY() + "," + tileentity.position.getZ()
+                    + " (" + CraftMagicNumbers.getMaterial(getType(blockposition)) + ") where there was no entity tile!\n" +
+                    "Chunk coordinates: " + (this.locX * 16) + "," + (this.locZ * 16));
+            e.printStackTrace();
+            ServerInternalException.reportInternalException(e);
+            // Paper end
             // CraftBukkit end
         }
     }

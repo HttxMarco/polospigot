@@ -2,6 +2,10 @@ package net.minecraft.server;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.bukkit.Bukkit;
+import org.github.paperspigot.event.ServerExceptionEvent;
+import org.github.paperspigot.exception.ServerInternalException;
+
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
@@ -103,6 +107,7 @@ public class PersistentCollection {
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();
+                ServerInternalException.reportInternalException(exception);
             }
 
         }
@@ -176,6 +181,7 @@ public class PersistentCollection {
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();
+                ServerInternalException.reportInternalException(exception); // Paper
             }
 
             return oshort.shortValue();
