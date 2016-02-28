@@ -402,4 +402,10 @@ public class PaperSpigotWorldConfig
     {
         portalSearchRadius = getInt("portal-search-radius", 128);
     }
+
+    public boolean disableTeleportationSuffocationCheck;
+    private void disableTeleportationSuffocationCheck()
+    {
+        disableTeleportationSuffocationCheck = getBoolean("disable-teleportation-suffocation-check", false);
+    }
 }
