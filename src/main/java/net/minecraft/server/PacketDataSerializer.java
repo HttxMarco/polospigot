@@ -46,8 +46,16 @@ public class PacketDataSerializer extends ByteBuf {
         this.writeBytes(abyte);
     }
 
+    // Paper start
     public byte[] a() {
-        byte[] abyte = new byte[this.e()];
+        return readByteArray(Short.MAX_VALUE);
+    }
+
+    public byte[]readByteArray(int limit) {
+        int len = this.e();
+        if (len > limit) throw new DecoderException("The received a byte array longer than allowed " + len + " > " + limit);
+        byte[] abyte = new byte[len];
+    // Paper end
 
         this.readBytes(abyte);
         return abyte;
