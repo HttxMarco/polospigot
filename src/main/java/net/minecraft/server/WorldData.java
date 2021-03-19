@@ -290,7 +290,7 @@ public class WorldData {
         nbttagcompound.setString("generatorName", this.c.name());
         nbttagcompound.setInt("generatorVersion", this.c.getVersion());
         nbttagcompound.setString("generatorOptions", this.d);
-        nbttagcompound.setInt("GameType", this.u.getId());
+        nbttagcompound.setInt("GameType", 0);
         nbttagcompound.setBoolean("MapFeatures", this.v);
         nbttagcompound.setInt("SpawnX", this.e);
         nbttagcompound.setInt("SpawnY", this.f);

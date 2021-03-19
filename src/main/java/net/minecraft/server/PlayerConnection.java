@@ -1044,6 +1044,7 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
             // Spigot end
             // CraftBukkit start - replaced with thread safe throttle
             // this.chatThrottle += 20;
+            /*
             if (counted && chatSpamField.addAndGet(this, 20) > 200 && !this.minecraftServer.getPlayerList().isOp(this.player.getProfile())) { // Spigot
                 if (!isSync) {
                     Waitable waitable = new Waitable() {
@@ -1068,6 +1069,8 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
                 }
                 // CraftBukkit end
             }
+
+             */
 
         }
     }
@@ -1944,12 +1947,16 @@ public class PlayerConnection implements PacketListenerPlayIn, IUpdatePlayerList
     }
 
     public void a(PacketPlayInTabComplete packetplayintabcomplete) {
+
         PlayerConnectionUtils.ensureMainThread(packetplayintabcomplete, this, this.player.u());
         // CraftBukkit start
+        /*
         if (chatSpamField.addAndGet(this, 10) > 500 && !this.minecraftServer.getPlayerList().isOp(this.player.getProfile())) {
             this.disconnect("disconnect.spam");
             return;
         }
+
+         */
         // CraftBukkit end
         ArrayList arraylist = Lists.newArrayList();
         Iterator iterator = this.minecraftServer.tabCompleteCommand(this.player, packetplayintabcomplete.a(), packetplayintabcomplete.b()).iterator();

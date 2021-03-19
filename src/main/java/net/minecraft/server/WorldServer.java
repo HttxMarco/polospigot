@@ -252,7 +252,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
         timings.chunkTicks.startTiming(); // Spigot
         this.h();
         timings.chunkTicks.stopTiming(); // Spigot
-        spigotConfig.antiXrayInstance.flushUpdates(this); // PaperSpigot
+        //spigotConfig.antiXrayInstance.flushUpdates(this); // PaperSpigot
         this.methodProfiler.c("chunkMap");
         timings.doChunkMap.startTiming(); // Spigot
         this.manager.flush();
@@ -263,9 +263,9 @@ public class WorldServer extends World implements IAsyncTaskHandler {
         this.siegeManager.a();
         timings.doVillages.stopTiming(); // Spigot
         this.methodProfiler.c("portalForcer");
-        timings.doPortalForcer.startTiming(); // Spigot
-        this.Q.a(this.getTime());
-        timings.doPortalForcer.stopTiming(); // Spigot
+        //timings.doPortalForcer.startTiming(); // Spigot
+        //this.Q.a(this.getTime());
+        //timings.doPortalForcer.stopTiming(); // Spigot
         this.methodProfiler.b();
         timings.doSounds.startTiming(); // Spigot
         this.ak();

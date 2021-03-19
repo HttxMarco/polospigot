@@ -87,6 +87,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.playerInteractManager = playerinteractmanager;
         BlockPosition blockposition = worldserver.getSpawn();
 
+        /*
         if (!worldserver.worldProvider.o() && worldserver.getWorldData().getGameType() != WorldSettings.EnumGamemode.ADVENTURE) {
             int i = Math.max(5, minecraftserver.getSpawnProtection() - 6);
             int j = MathHelper.floor(worldserver.getWorldBorder().b((double) blockposition.getX(), (double) blockposition.getZ()));
@@ -102,6 +103,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             blockposition = worldserver.r(blockposition.a(this.random.nextInt(i * 2) - i, 0, this.random.nextInt(i * 2) - i));
         }
 
+
+         */
         this.server = minecraftserver;
         this.bK = minecraftserver.getPlayerList().a((EntityHuman) this);
         this.S = 0.0F;

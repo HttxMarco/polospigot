@@ -50,7 +50,7 @@ public class RestartCommand extends Command
                 System.out.println( "Attempting to restart with " + SpigotConfig.restartScript );
 
                 // Disable Watchdog
-                WatchdogThread.doStop();
+             //   WatchdogThread.doStop();
 
                 // Kick all players
                 for ( EntityPlayer p : (List< EntityPlayer>) MinecraftServer.getServer().getPlayerList().players )

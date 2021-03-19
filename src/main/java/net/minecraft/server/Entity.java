@@ -283,6 +283,7 @@ public abstract class Entity implements ICommandListener {
         this.lastPitch = this.pitch;
         this.lastYaw = this.yaw;
         if (!this.world.isClientSide && this.world instanceof WorldServer) {
+            /*
             this.world.methodProfiler.a("portal");
             MinecraftServer minecraftserver = ((WorldServer) this.world).getMinecraftServer();
             int i = this.L();
@@ -320,6 +321,8 @@ public abstract class Entity implements ICommandListener {
             }
 
             this.world.methodProfiler.b();
+
+             */
         }
 
         this.Y();

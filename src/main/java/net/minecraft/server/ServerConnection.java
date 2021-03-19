@@ -77,11 +77,11 @@ public class ServerConnection {
             if (Epoll.isAvailable() && this.f.ai()) {
                 oclass = EpollServerSocketChannel.class;
                 lazyinitvar = ServerConnection.b;
-                ServerConnection.e.info("Using epoll channel type");
+                //ServerConnection.e.info("Using epoll channel type");
             } else {
                 oclass = NioServerSocketChannel.class;
                 lazyinitvar = ServerConnection.a;
-                ServerConnection.e.info("Using default channel type");
+                //ServerConnection.e.info("Using default channel type");
             }
 
             this.g.add(((ServerBootstrap) ((ServerBootstrap) (new ServerBootstrap()).channel(oclass)).childHandler(new ChannelInitializer() {

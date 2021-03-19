@@ -23,7 +23,7 @@ public class PlayerInteractManager {
     private int k;
 
     public PlayerInteractManager(World world) {
-        this.gamemode = WorldSettings.EnumGamemode.NOT_SET;
+        this.gamemode = WorldSettings.EnumGamemode.SURVIVAL;
         this.f = BlockPosition.ZERO;
         this.i = BlockPosition.ZERO;
         this.k = -1;
@@ -50,10 +50,7 @@ public class PlayerInteractManager {
     }
 
     public void b(WorldSettings.EnumGamemode worldsettings_enumgamemode) {
-        if (this.gamemode == WorldSettings.EnumGamemode.NOT_SET) {
-            this.gamemode = worldsettings_enumgamemode;
-        }
-
+        this.gamemode = WorldSettings.EnumGamemode.SURVIVAL;
         this.setGameMode(this.gamemode);
     }
 
@@ -197,7 +194,7 @@ public class PlayerInteractManager {
             }
 
         }
-        world.spigotConfig.antiXrayInstance.updateNearbyBlocks(world, blockposition); // Spigot
+        //world.spigotConfig.antiXrayInstance.updateNearbyBlocks(world, blockposition); // Spigot
     }
 
     public void a(BlockPosition blockposition) {

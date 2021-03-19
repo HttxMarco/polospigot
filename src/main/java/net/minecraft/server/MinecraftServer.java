@@ -228,21 +228,17 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
             WorldServer world;
             byte dimension = 0;
 
+
             if (j == 1) {
-                if (getAllowNether()) {
-                    dimension = -1;
-                } else {
-                    continue;
-                }
+                continue;
+
             }
 
             if (j == 2) {
-                if (server.getAllowEnd()) {
-                    dimension = 1;
-                } else {
-                    continue;
-                }
+                continue;
             }
+
+
 
             String worldType = org.bukkit.World.Environment.getEnvironment(dimension).toString().toLowerCase();
             String name = (dimension == 0) ? s : s + "_" + worldType;
@@ -340,7 +336,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         // CraftBukkit start - fire WorldLoadEvent and handle whether or not to keep the spawn in memory
         for (int m = 0; m < worlds.size(); m++) {
             WorldServer worldserver = this.worlds.get(m);
-            LOGGER.info("Preparing start region for level " + m + " (Seed: " + worldserver.getSeed() + ")");
+            //LOGGER.info("Preparing start region for level " + m + " (Seed: " + worldserver.getSeed() + ")");
 
             if (!worldserver.getWorld().getKeepSpawnInMemory()) {
                 continue;
@@ -448,7 +444,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         }
         // CraftBukkit end
         if (!this.N) {
-            MinecraftServer.LOGGER.info("Stopping server");
+            //MinecraftServer.LOGGER.info("Stopping server");
             SpigotTimings.stopServer(); // Spigot
 
             // CraftBukkit start
@@ -460,35 +456,44 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
                 this.aq().b();
             }
 
+
             if (this.v != null) {
+                this.v.u();
+            }
+             /*
                 MinecraftServer.LOGGER.info("Saving players");
                 this.v.savePlayers();
                 this.v.u();
                 try { Thread.sleep(100); } catch (InterruptedException ex) {} // CraftBukkit - SPIGOT-625 - give server at least a chance to send packets
             }
 
+             */
+
             if (this.worldServer != null) {
-                MinecraftServer.LOGGER.info("Saving worlds");
+
+               // MinecraftServer.LOGGER.info("Saving worlds");
                 this.saveChunks(false);
 
-                /* CraftBukkit start - Handled in saveChunks
-                for (int i = 0; i < this.worldServer.length; ++i) {
-                    WorldServer worldserver = this.worldServer[i];
-
-                    worldserver.saveLevel();
-                }
-                // CraftBukkit end */
+                //CraftBukkit start - Handled in saveChunks
+                try {
+                    for (int i = 0; i < this.worldServer.length; ++i) {
+                        WorldServer worldserver = this.worldServer[i];
+                        worldserver.saveLevel();
+                    }
+                }catch (NullPointerException ex) {}
             }
 
             if (this.n.d()) {
                 this.n.e();
             }
             // Spigot start
-            if( org.spigotmc.SpigotConfig.saveUserCacheOnStopOnly )
-            {
+            /*
+            if( org.spigotmc.SpigotConfig.saveUserCacheOnStopOnly ) {
                 LOGGER.info("Saving usercache.json");
                 this.Z.c();
             }
+
+             */
             //Spigot end
         }
     }
@@ -647,7 +652,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
             this.a(crashreport);
         } finally {
             try {
-                org.spigotmc.WatchdogThread.doStop();
+            //    org.spigotmc.WatchdogThread.doStop();
                 this.isStopped = true;
                 this.stop();
             } catch (Throwable throwable1) {
@@ -667,6 +672,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
     }
 
     private void a(ServerPing serverping) {
+        /*
         File file = this.d("server-icon.png");
 
         if (file.isFile()) {
@@ -688,6 +694,8 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
             }
         }
 
+
+         */
     }
 
     public File y() {
@@ -758,7 +766,7 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
 
         this.methodProfiler.b();
         this.methodProfiler.b();
-        org.spigotmc.WatchdogThread.tick(); // Spigot
+       // org.spigotmc.WatchdogThread.tick(); // Spigot
         co.aikar.timings.TimingsManager.FULL_SERVER_TICK.stopTiming(); // Spigot
     }
 
@@ -889,9 +897,12 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         this.methodProfiler.b();
     }
 
+    /*
     public boolean getAllowNether() {
         return true;
     }
+
+     */
 
     public void a(IUpdatePlayerListBox iupdateplayerlistbox) {
         this.p.add(iupdateplayerlistbox);
@@ -1462,9 +1473,12 @@ public abstract class MinecraftServer implements Runnable, ICommandListener, IAs
         return null;
     }
 
+    /*
     public int getSpawnProtection() {
         return 16;
     }
+
+     */
 
     public boolean a(World world, BlockPosition blockposition, EntityHuman entityhuman) {
         return false;

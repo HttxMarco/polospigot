@@ -22,10 +22,11 @@ public class PaperSpigotWorldConfig
     {
         this.verbose = getBoolean( "verbose", true );
 
-        log( "-------- World Settings For [" + worldName + "] --------" );
+       // log( "-------- World Settings For [" + worldName + "] --------" );
         PaperSpigotConfig.readConfig( PaperSpigotWorldConfig.class, this );
     }
 
+    /*
     private void log(String s)
     {
         if ( verbose )
@@ -33,6 +34,8 @@ public class PaperSpigotWorldConfig
             Bukkit.getLogger().info( s );
         }
     }
+
+     */
 
     private void set(String path, Object val)
     {
@@ -79,7 +82,7 @@ public class PaperSpigotWorldConfig
     private void allowUndeadHorseLeashing()
     {
         allowUndeadHorseLeashing = getBoolean( "allow-undead-horse-leashing", false );
-        log( "Allow undead horse types to be leashed: " + allowUndeadHorseLeashing );
+        //log( "Allow undead horse types to be leashed: " + allowUndeadHorseLeashing );
     }
 
     public double squidMinSpawnHeight;
@@ -88,14 +91,14 @@ public class PaperSpigotWorldConfig
     {
         squidMinSpawnHeight = getDouble( "squid-spawn-height.minimum", 45.0D );
         squidMaxSpawnHeight = getDouble( "squid-spawn-height.maximum", 63.0D );
-        log( "Squids will spawn between Y: " + squidMinSpawnHeight + " and Y: " + squidMaxSpawnHeight );
+        //log( "Squids will spawn between Y: " + squidMinSpawnHeight + " and Y: " + squidMaxSpawnHeight );
     }
 
     public float playerBlockingDamageMultiplier;
     private void playerBlockingDamageMultiplier()
     {
         playerBlockingDamageMultiplier = getFloat( "player-blocking-damage-multiplier", 0.5F );
-        log( "Player blocking damage multiplier set to " + playerBlockingDamageMultiplier );
+        //log( "Player blocking damage multiplier set to " + playerBlockingDamageMultiplier );
     }
 
     public int cactusMaxHeight;
@@ -104,7 +107,7 @@ public class PaperSpigotWorldConfig
     {
         cactusMaxHeight = getInt( "max-growth-height.cactus", 3 );
         reedMaxHeight = getInt( "max-growth-height.reeds", 3 );
-        log( "Max height for cactus growth " + cactusMaxHeight + ". Max height for reed growth " + reedMaxHeight );
+       // log( "Max height for cactus growth " + cactusMaxHeight + ". Max height for reed growth " + reedMaxHeight );
     }
 
     public int fishingMinTicks;
@@ -134,7 +137,7 @@ public class PaperSpigotWorldConfig
             softDespawnDistance = hardDespawnDistance;
         }
 
-        log( "Living Entity Despawn Ranges:  Soft: " + softDespawnDistance + " Hard: " + hardDespawnDistance );
+        //log( "Living Entity Despawn Ranges:  Soft: " + softDespawnDistance + " Hard: " + hardDespawnDistance );
 
         softDespawnDistance = softDespawnDistance*softDespawnDistance;
         hardDespawnDistance = hardDespawnDistance*hardDespawnDistance;
@@ -144,7 +147,7 @@ public class PaperSpigotWorldConfig
     private void keepSpawnInMemory()
     {
         keepSpawnInMemory = getBoolean( "keep-spawn-loaded", true );
-        log( "Keep spawn chunk loaded: " + keepSpawnInMemory );
+       // log( "Keep spawn chunk loaded: " + keepSpawnInMemory );
     }
 
     public int fallingBlockHeightNerf;
@@ -153,7 +156,7 @@ public class PaperSpigotWorldConfig
         fallingBlockHeightNerf = getInt( "falling-block-height-nerf", 0 );
         if ( fallingBlockHeightNerf != 0 )
         {
-            log( "Falling Block Height Limit set to Y: " + fallingBlockHeightNerf );
+            //log( "Falling Block Height Limit set to Y: " + fallingBlockHeightNerf );
         }
     }
 
@@ -163,7 +166,7 @@ public class PaperSpigotWorldConfig
         tntEntityHeightNerf = getInt( "tnt-entity-height-nerf", 0 );
         if ( tntEntityHeightNerf != 0 )
         {
-            log( "TNT Entity Height Limit set to Y: " + tntEntityHeightNerf );
+            //log( "TNT Entity Height Limit set to Y: " + tntEntityHeightNerf );
         }
     }
 
@@ -171,14 +174,14 @@ public class PaperSpigotWorldConfig
     private void waterOverLavaFlowSpeed()
     {
         waterOverLavaFlowSpeed = getInt( "water-over-lava-flow-speed", 5 );
-        log( "Water over lava flow speed: " + waterOverLavaFlowSpeed );
+       // log( "Water over lava flow speed: " + waterOverLavaFlowSpeed );
     }
 
     public boolean removeInvalidMobSpawnerTEs;
     private void removeInvalidMobSpawnerTEs()
     {
         removeInvalidMobSpawnerTEs = getBoolean( "remove-invalid-mob-spawner-tile-entities", true );
-        log( "Remove invalid mob spawner tile entities: " + removeInvalidMobSpawnerTEs );
+        //log( "Remove invalid mob spawner tile entities: " + removeInvalidMobSpawnerTEs );
     }
 
     public boolean removeUnloadedEnderPearls;
@@ -213,15 +216,15 @@ public class PaperSpigotWorldConfig
     {
         tickNextTickCap = getInt( "tick-next-tick-list-cap", 10000 ); // Higher values will be friendlier to vanilla style mechanics (to a point) but may hurt performance
         tickNextTickListCapIgnoresRedstone = getBoolean( "tick-next-tick-list-cap-ignores-redstone", false ); // Redstone TickNextTicks will always bypass the preceding cap.
-        log( "WorldServer TickNextTick cap set at " + tickNextTickCap );
-        log( "WorldServer TickNextTickList cap always processes redstone: " + tickNextTickListCapIgnoresRedstone );
+        //log( "WorldServer TickNextTick cap set at " + tickNextTickCap );
+        //log( "WorldServer TickNextTickList cap always processes redstone: " + tickNextTickListCapIgnoresRedstone );
     }
 
     public boolean useAsyncLighting;
     private void useAsyncLighting()
     {
         useAsyncLighting = getBoolean( "use-async-lighting", false );
-        log( "World async lighting: " + useAsyncLighting );
+        //log( "World async lighting: " + useAsyncLighting );
     }
 
     public boolean disableEndCredits;
@@ -300,7 +303,7 @@ public class PaperSpigotWorldConfig
         }
 
         fixCannons = getBoolean( "fix-cannons", false );
-        log( "Fix TNT cannons: " + fixCannons );
+        //log( "Fix TNT cannons: " + fixCannons );
     }
 
     public boolean fallingBlocksCollideWithSigns;

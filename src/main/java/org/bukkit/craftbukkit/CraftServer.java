@@ -141,7 +141,7 @@ public final class CraftServer implements Server {
     protected final DedicatedPlayerList playerList;
     private final Map<String, World> worlds = new LinkedHashMap<String, World>();
     private YamlConfiguration configuration;
-    private YamlConfiguration commandsConfiguration;
+    //private YamlConfiguration commandsConfiguration;
     private final Yaml yaml = new Yaml(new SafeConstructor());
     private final Map<UUID, OfflinePlayer> offlinePlayers = new MapMaker().softValues().makeMap();
     private final EntityMetadataStore entityMetadata = new EntityMetadataStore();
@@ -206,11 +206,15 @@ public final class CraftServer implements Server {
         configuration.options().copyDefaults(true);
         configuration.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("configurations/bukkit.yml"), Charsets.UTF_8)));
         ConfigurationSection legacyAlias = null;
+        /*
         if (!configuration.isString("aliases")) {
             legacyAlias = configuration.getConfigurationSection("aliases");
-            configuration.set("aliases", "now-in-commands.yml");
+           //< configuration.set("aliases", "now-in-commands.yml");
         }
+
+         */
         saveConfig();
+        /*
         if (getCommandsConfigFile().isFile()) {
             legacyAlias = null;
         }
@@ -219,7 +223,10 @@ public final class CraftServer implements Server {
         commandsConfiguration.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("configurations/commands.yml"), Charsets.UTF_8)));
         saveCommandsConfig();
 
+         */
+
         // Migrate aliases from old file and add previously implicit $1- to pass all arguments
+        /*
         if (legacyAlias != null) {
             ConfigurationSection aliases = commandsConfiguration.createSection("aliases");
             for (String key : legacyAlias.getKeys(false)) {
@@ -237,8 +244,10 @@ public final class CraftServer implements Server {
             }
         }
 
-        saveCommandsConfig();
-        overrideAllCommandBlockCommands = commandsConfiguration.getStringList("command-block-overrides").contains("*");
+         */
+
+       // saveCommandsConfig();
+       // overrideAllCommandBlockCommands = commandsConfiguration.getStringList("command-block-overrides").contains("*");
         ((SimplePluginManager) pluginManager).useTimings(configuration.getBoolean("settings.plugin-profiling"));
         monsterSpawn = configuration.getInt("spawn-limits.monsters");
         animalSpawn = configuration.getInt("spawn-limits.animals");
@@ -257,7 +266,7 @@ public final class CraftServer implements Server {
     }
 
     public boolean getCommandBlockOverride(String command) {
-        return overrideAllCommandBlockCommands || commandsConfiguration.getStringList("command-block-overrides").contains(command);
+        return overrideAllCommandBlockCommands;
     }
 
     private File getConfigFile() {
@@ -276,6 +285,7 @@ public final class CraftServer implements Server {
         }
     }
 
+    /*
     private void saveCommandsConfig() {
         try {
             commandsConfiguration.save(getCommandsConfigFile());
@@ -283,6 +293,8 @@ public final class CraftServer implements Server {
             Logger.getLogger(CraftServer.class.getName()).log(Level.SEVERE, "Could not save " + getCommandsConfigFile(), ex);
         }
     }
+
+     */
 
     public void loadPlugins() {
         pluginManager.registerInterface(JavaPluginLoader.class);
@@ -322,11 +334,11 @@ public final class CraftServer implements Server {
         if (type == PluginLoadOrder.POSTWORLD) {
             // Spigot start - Allow vanilla commands to be forced to be the main command
             setVanillaCommands(true);
-            commandMap.setFallbackCommands();
+          //  commandMap.setFallbackCommands();
             setVanillaCommands(false);
             // Spigot end
-            commandMap.registerServerAliases();
-            loadCustomPermissions();
+            //commandMap.registerServerAliases();
+            //loadCustomPermissions();
             DefaultPermissions.registerCorePermissions();
             CraftDefaultPermissions.registerCorePermissions();
             helpMap.initializeCommands();
@@ -521,15 +533,22 @@ public final class CraftServer implements Server {
         return this.getConfigBoolean("generate-structures", true);
     }
 
+    /*
+
     @Override
     public boolean getAllowEnd() {
         return this.configuration.getBoolean("settings.allow-end");
     }
 
+     */
+
+    /*
     @Override
     public boolean getAllowNether() {
         return this.getConfigBoolean("allow-nether", true);
     }
+
+     */
 
     public boolean getWarnOnOverload() {
         return this.configuration.getBoolean("settings.warn-on-overload");
@@ -676,7 +695,7 @@ public final class CraftServer implements Server {
     public void reload() {
         reloadCount++;
         configuration = YamlConfiguration.loadConfiguration(getConfigFile());
-        commandsConfiguration = YamlConfiguration.loadConfiguration(getCommandsConfigFile());
+        //commandsConfiguration = YamlConfiguration.loadConfiguration(getCommandsConfigFile());
         PropertyManager config = new PropertyManager(console.options);
 
         ((DedicatedServer) console).propertyManager = config;
@@ -738,7 +757,7 @@ public final class CraftServer implements Server {
         org.spigotmc.SpigotConfig.registerCommands(); // Spigot
         org.github.paperspigot.PaperSpigotConfig.registerCommands(); // PaperSpigot
 
-        overrideAllCommandBlockCommands = commandsConfiguration.getStringList("command-block-overrides").contains("*");
+       // overrideAllCommandBlockCommands = commandsConfiguration.getStringList("command-block-overrides").contains("*");
 
         int pollCount = 0;
 
@@ -770,6 +789,7 @@ public final class CraftServer implements Server {
     }
 
     private void loadIcon() {
+        /*
         icon = new CraftIconCache(null);
         try {
             final File file = new File(new File("."), "server-icon.png");
@@ -779,6 +799,8 @@ public final class CraftServer implements Server {
         } catch (Exception ex) {
             getLogger().log(Level.WARNING, "Couldn't load server icon", ex);
         }
+
+         */
     }
 
     @SuppressWarnings({ "unchecked", "finally" })
@@ -1057,7 +1079,7 @@ public final class CraftServer implements Server {
     public void addWorld(World world) {
         // Check if a World already exists with the UID.
         if (getWorld(world.getUID()) != null) {
-            System.out.println("World " + world.getName() + " is a duplicate of another world and has been prevented from loading. Please delete the uid.dat file from " + world.getName() + "'s world directory if you want to be able to load the duplicate world.");
+           // System.out.println("World " + world.getName() + " is a duplicate of another world and has been prevented from loading. Please delete the uid.dat file from " + world.getName() + "'s world directory if you want to be able to load the duplicate world.");
             return;
         }
         worlds.put(world.getName().toLowerCase(), world);
@@ -1167,8 +1189,10 @@ public final class CraftServer implements Server {
         RecipesFurnace.getInstance().customRecipes.clear();
     }
 
+    /*
     @Override
     public Map<String, String[]> getCommandAliases() {
+
         ConfigurationSection section = commandsConfiguration.getConfigurationSection("aliases");
         Map<String, String[]> result = new LinkedHashMap<String, String[]>();
 
@@ -1188,6 +1212,8 @@ public final class CraftServer implements Server {
 
         return result;
     }
+
+     */
 
     public void removeBukkitSpawnRadius() {
         configuration.set("settings.spawn-radius", null);
@@ -1460,7 +1486,7 @@ public final class CraftServer implements Server {
 
     @Override
     public GameMode getDefaultGameMode() {
-        return GameMode.getByValue(console.worlds.get(0).getWorldData().getGameType().getId());
+        return GameMode.SURVIVAL;
     }
 
     @Override

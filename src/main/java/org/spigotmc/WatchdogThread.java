@@ -26,11 +26,14 @@ public class WatchdogThread extends Thread
 
     public static void doStart(int timeoutTime, boolean restart)
     {
+        /*
         if ( instance == null )
         {
             instance = new WatchdogThread( timeoutTime * 1000L, restart );
             instance.start();
         }
+
+         */
     }
 
     public static void tick()

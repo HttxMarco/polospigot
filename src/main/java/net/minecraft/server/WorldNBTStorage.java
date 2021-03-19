@@ -64,6 +64,7 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
     }
 
     public void checkSession() throws ExceptionWorldConflict {
+        /*
         try {
             File file = new File(this.baseDir, "session.lock");
             DataInputStream datainputstream = new DataInputStream(new FileInputStream(file));
@@ -79,6 +80,8 @@ public class WorldNBTStorage implements IDataManager, IPlayerFileData {
         } catch (IOException ioexception) {
             throw new ExceptionWorldConflict("Failed to check session lock for world located at " + this.baseDir + ", aborting. Stop the server and delete the session.lock in this world to prevent further issues."); // Spigot
         }
+
+         */
     }
 
     public IChunkLoader createChunkLoader(WorldProvider worldprovider) {

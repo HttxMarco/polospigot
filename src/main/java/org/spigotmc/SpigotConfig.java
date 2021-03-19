@@ -51,7 +51,7 @@ public class SpigotConfig
     static int version;
     static Map<String, Command> commands;
     /*========================================================================*/
-    private static Metrics metrics;
+    //private static Metrics metrics;
 
     public static void init(File configFile)
     {
@@ -85,6 +85,7 @@ public class SpigotConfig
             MinecraftServer.getServer().server.getCommandMap().register( entry.getKey(), "Spigot", entry.getValue() );
         }
 
+        /*
         if ( metrics == null )
         {
             try
@@ -96,6 +97,8 @@ public class SpigotConfig
                 Bukkit.getServer().getLogger().log( Level.SEVERE, "Could not start metrics service", ex );
             }
         }
+
+         */
     }
 
     static void readConfig(Class<?> clazz, Object instance)
@@ -223,7 +226,7 @@ public class SpigotConfig
         restartScript = getString( "settings.restart-script", restartScript );
         restartMessage = transform( getString( "messages.restart", "Server is restarting" ) );
         commands.put( "restart", new RestartCommand( "restart" ) );
-        WatchdogThread.doStart( timeoutTime, restartOnCrash );
+      //  WatchdogThread.doStart( timeoutTime, restartOnCrash );
     }
 
     public static boolean bungee;
@@ -251,10 +254,13 @@ public class SpigotConfig
         Timings.setHistoryInterval( timingHistoryInterval * 20 );
         Timings.setHistoryLength( timingHistoryLength * 20 );
 
+        /*
         Bukkit.getLogger().log( Level.INFO, "Spigot Timings: " + timings +
             " - Verbose: " + verboseTimings +
             " - Interval: " + timeSummary(Timings.getHistoryInterval() / 20) +
             " - Length: " +  timeSummary(Timings.getHistoryLength() / 20));
+
+         */
     }
     protected static String timeSummary(int seconds) {
         String time = "";
@@ -273,7 +279,7 @@ public class SpigotConfig
     {
         int count = getInt( "settings.netty-threads", 4 );
         System.setProperty( "io.netty.eventLoopThreads", Integer.toString( count ) );
-        Bukkit.getLogger().log( Level.INFO, "Using {0} threads for Netty based IO", count );
+       // Bukkit.getLogger().log( Level.INFO, "Using {0} threads for Netty based IO", count );
     }
 
     public static boolean lateBind;
@@ -317,7 +323,7 @@ public class SpigotConfig
     private static void playerSample()
     {
         playerSample = getInt( "settings.sample-count", 12 );
-        System.out.println( "Server Ping Player Sample Count: " + playerSample );
+        //System.out.println( "Server Ping Player Sample Count: " + playerSample );
     }
 
     public static int playerShuffle;
@@ -416,6 +422,8 @@ public class SpigotConfig
             ctx.updateLoggers( conf );
         }
 
+        /*
+
         if ( LogManager.getRootLogger().isTraceEnabled() )
         {
             Bukkit.getLogger().info( "Debug logging is enabled" );
@@ -423,5 +431,7 @@ public class SpigotConfig
         {
             Bukkit.getLogger().info( "Debug logging is disabled" );
         }
+
+         */
     }
 }

@@ -534,7 +534,7 @@ public abstract class World implements IBlockAccess {
         this.d(blockposition.up(), block);
         this.d(blockposition.north(), block);
         this.d(blockposition.south(), block);
-        spigotConfig.antiXrayInstance.updateNearbyBlocks(this, blockposition); // Spigot
+        //spigotConfig.antiXrayInstance.updateNearbyBlocks(this, blockposition); // Spigot
     }
 
     public void a(BlockPosition blockposition, Block block, EnumDirection enumdirection) {

@@ -171,7 +171,7 @@ public class PaperSpigotConfig
     private static void dataValueAllowedItems()
     {
         dataValueAllowedItems = new HashSet<Integer>( getList( "data-value-allowed-items", Collections.emptyList() ) );
-        Bukkit.getLogger().info( "Data value allowed items: " + StringUtils.join(dataValueAllowedItems, ", ") );
+     //   Bukkit.getLogger().info( "Data value allowed items: " + StringUtils.join(dataValueAllowedItems, ", ") );
     }
 
     public static boolean stackableLavaBuckets;
@@ -189,9 +189,12 @@ public class PaperSpigotConfig
             maxStack = Material.class.getDeclaredField("maxStack");
             maxStack.setAccessible(true);
 
+            /*
             Field modifiers = Field.class.getDeclaredField("modifiers");
             modifiers.setAccessible(true);
             modifiers.setInt(maxStack, maxStack.getModifiers() & ~Modifier.FINAL);
+
+             */
         } catch (Exception e) {
             e.printStackTrace();
             return;

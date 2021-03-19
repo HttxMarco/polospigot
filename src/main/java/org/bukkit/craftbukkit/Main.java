@@ -20,8 +20,11 @@ public class Main {
         // Todo: Installation script
         OptionParser parser = new OptionParser() {
             {
+                /*
                 acceptsAll(asList("?", "help"), "Show the help");
 
+
+                 */
                 acceptsAll(asList("c", "config"), "Properties file to use")
                         .withRequiredArg()
                         .ofType(File.class)
@@ -101,20 +104,26 @@ public class Main {
                         .defaultsTo(new File("bukkit.yml"))
                         .describedAs("Yml file");
 
+                /*
                 acceptsAll(asList("C", "commands-settings"), "File for command settings")
                         .withRequiredArg()
                         .ofType(File.class)
                         .defaultsTo(new File("commands.yml"))
                         .describedAs("Yml file");
 
+                 */
+
                 acceptsAll(asList("nojline"), "Disables jline and emulates the vanilla console");
 
                 acceptsAll(asList("noconsole"), "Disables the console");
 
+                /*
                 acceptsAll(asList("v", "version"), "Show the CraftBukkit Version");
 
                 acceptsAll(asList("demo"), "Demo mode");
 
+
+                 */
                 // Spigot Start
                 acceptsAll(asList("S", "spigot-settings"), "File for spigot settings")
                         .withRequiredArg()
@@ -182,6 +191,7 @@ public class Main {
                 }
 
                 // Spigot Start
+                /*
                 int maxPermGen = 0; // In kb
                 for ( String s : java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments() )
                 {
@@ -196,8 +206,10 @@ public class Main {
                     System.out.println( "Warning, your max perm gen size is not set or less than 128mb. It is recommended you restart Java with the following argument: -XX:MaxPermSize=128M" );
                     System.out.println( "Please see http://www.spigotmc.org/wiki/changing-permgen-size/ for more details and more in-depth instructions." );
                 }
+
+                 */
                 // Spigot End
-                System.out.println("Loading libraries, please wait...");
+                System.out.println("Der Launcher (v.1.2) wird ausgeführt...");
                 MinecraftServer.main(options);
             } catch (Throwable t) {
                 t.printStackTrace();

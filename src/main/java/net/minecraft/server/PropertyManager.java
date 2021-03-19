@@ -63,7 +63,7 @@ public class PropertyManager {
     // CraftBukkit end
 
     public void a() {
-        PropertyManager.a.info("Generating new properties file");
+        //PropertyManager.a.info("Generating new properties file");
         this.savePropertiesFile();
     }
 
